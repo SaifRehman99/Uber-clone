@@ -6,6 +6,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_API_KEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../slices/navSlice";
+import SuggestedPlaces from "../components/SuggestedPlaces";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const Home = () => {
             />
 
             <NavOptions />
+            <SuggestedPlaces />
         </View>
     );
 };

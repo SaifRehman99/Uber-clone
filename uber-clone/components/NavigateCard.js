@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { GOOGLE_API_KEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination } from "../slices/navSlice";
+import SuggestedPlaces from "./SuggestedPlaces";
 
 const NavigateCard = () => {
     const navigation = useNavigation();
@@ -56,6 +57,8 @@ const NavigateCard = () => {
                     />
                 </View>
             </View>
+
+            <SuggestedPlaces />
         </View>
     );
 };

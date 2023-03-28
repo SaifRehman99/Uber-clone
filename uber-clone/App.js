@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import Home from "./screens/Home";
@@ -19,18 +19,20 @@ export default function App() {
             <NavigationContainer>
                 <SafeAreaProvider>
                     <SafeAreaView style={AndroidSafeAreaView.AndroidSafeArea}>
-                        <Stack.Navigator initialRouteName="Home">
-                            <Stack.Screen
-                                name="HomeScreen"
-                                component={Home}
-                                options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
-                            />
-                            <Stack.Screen
-                                name="MapScreen"
-                                component={MapScreen}
-                                options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
-                            />
-                        </Stack.Navigator>
+                        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                            <Stack.Navigator initialRouteName="Home">
+                                <Stack.Screen
+                                    name="HomeScreen"
+                                    component={Home}
+                                    options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
+                                />
+                                <Stack.Screen
+                                    name="MapScreen"
+                                    component={MapScreen}
+                                    options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
+                                />
+                            </Stack.Navigator>
+                        </KeyboardAvoidingView>
                     </SafeAreaView>
                 </SafeAreaProvider>
             </NavigationContainer>
