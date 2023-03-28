@@ -7,19 +7,13 @@ const data = [
         id: 123,
         icon: "home",
         location: "Home",
-        destination: "Portland Oregon, USA",
+        destination: "Karachi, Pakistan",
     },
     {
         id: 456,
         icon: "briefcase",
         location: "Work",
-        destination: "London Eye, London, UK",
-    },
-    {
-        id: 1456,
-        icon: "briefcase",
-        location: "Work",
-        destination: "Germany",
+        destination: "Dubai, UAE",
     },
 ];
 
