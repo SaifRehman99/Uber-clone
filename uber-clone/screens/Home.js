@@ -42,7 +42,11 @@ const Home = () => {
                 query={{
                     key: GOOGLE_API_KEY,
                     language: "en",
+                    components: "country:pk",
                 }}
+
+                // !Suggested search
+                // predefinedPlaces={[{ description: "Karachi, Pakistan", geometry: { location: { lat: 67.0011, lng: 24.8607 } } }]}
             />
 
             <NavOptions />

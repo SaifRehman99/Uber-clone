@@ -53,6 +53,7 @@ const NavigateCard = () => {
                         query={{
                             key: GOOGLE_API_KEY,
                             language: "en",
+                            components: "country:pk",
                         }}
                     />
                 </View>

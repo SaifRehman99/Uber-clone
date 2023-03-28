@@ -19,20 +19,20 @@ export default function App() {
             <NavigationContainer>
                 <SafeAreaProvider>
                     <SafeAreaView style={AndroidSafeAreaView.AndroidSafeArea}>
-                        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                            <Stack.Navigator initialRouteName="Home">
-                                <Stack.Screen
-                                    name="HomeScreen"
-                                    component={Home}
-                                    options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
-                                />
-                                <Stack.Screen
-                                    name="MapScreen"
-                                    component={MapScreen}
-                                    options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
-                                />
-                            </Stack.Navigator>
-                        </KeyboardAvoidingView>
+                        {/* <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}> */}
+                        <Stack.Navigator initialRouteName="Home">
+                            <Stack.Screen
+                                name="HomeScreen"
+                                component={Home}
+                                options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
+                            />
+                            <Stack.Screen
+                                name="MapScreen"
+                                component={MapScreen}
+                                options={{ headerShown: false, gestureEnabled: true, gestureDirection: "horizontal" }}
+                            />
+                        </Stack.Navigator>
+                        {/* </KeyboardAvoidingView> */}
                     </SafeAreaView>
                 </SafeAreaProvider>
             </NavigationContainer>

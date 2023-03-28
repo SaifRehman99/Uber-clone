@@ -1,8 +1,8 @@
 import { View, Text } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
-import { useSelector } from "react-redux";
-import { selectOrigin, selectDestination } from "../slices/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectOrigin, selectDestination, setTravelTimeInformation } from "../slices/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 import { GOOGLE_API_KEY } from "@env";
 
@@ -11,13 +11,14 @@ const Map = () => {
     const destination = useSelector(selectDestination);
 
     const mapRef = useRef();
+    const dispatch = useDispatch();
+
+    const [margin, setMargin] = useState(1);
 
     useEffect(() => {
         if (!origin || !destination) return;
-        console.log("call...");
 
         // zoom and fit to markers
-
         // not working
         // mapRef.current.fitToSuppliedMarkers(['origin', 'destination'], {edgePadding:{}, animated: true});
 
@@ -38,13 +39,40 @@ const Map = () => {
         );
     }, [origin, destination]);
 
+    useEffect(() => {
+        if (!origin || !destination) return;
+
+        const getTravelTime = async () => {
+            try {
+                const URL = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin?.description}&destinations=${destination?.description}&key=${GOOGLE_API_KEY}`;
+                const res = await fetch(URL);
+                const data = await res.json();
+
+                dispatch(setTravelTimeInformation(data.rows[0]?.elements[0]));
+            } catch (error) {
+                alert(error.message || "Something went wrong...");
+            }
+        };
+
+        getTravelTime();
+    }, [origin, destination, GOOGLE_API_KEY]);
+
     return (
         <MapView
             ref={(ref) => {
                 mapRef.current = ref;
             }}
             className="flex-1"
-            mapType="mutedStandard"
+            mapType="standard"
+            userInterfaceStyle="dark"
+            showsTraffic={true}
+            showsIndoorLevelPicker={true}
+            loadingEnabled={true}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            onMapReady={() => {
+                setMargin(0);
+            }}
             initialRegion={{
                 latitude: origin?.location?.lat,
                 longitude: origin?.location?.lng,
@@ -58,7 +86,7 @@ const Map = () => {
                     destination={destination?.description}
                     apikey={GOOGLE_API_KEY}
                     strokeColor="black"
-                    strokeWidth={3}
+                    strokeWidth={5}
                 />
             )}
 
@@ -71,6 +99,7 @@ const Map = () => {
                     title="Origin"
                     description={origin?.description}
                     identifier="origin"
+                    image={{ uri: "https://i.ibb.co/C9Y2QRh/destination-1.png" }}
                 />
             )}
 
@@ -83,6 +112,7 @@ const Map = () => {
                     title="Destination"
                     description={destination?.description}
                     identifier="destination"
+                    image={{ uri: "https://i.ibb.co/C9Y2QRh/destination-1.png" }}
                 />
             )}
         </MapView>
